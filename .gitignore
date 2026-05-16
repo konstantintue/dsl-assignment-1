@@ -10,11 +10,10 @@ bin/
 build/
 target/
 *.class
-*.md
 # Temporary files
 *.tmp
 *.bak
 *.swp
-
+*.md
 # Archives generated for final submission can be recreated
 *.zip
