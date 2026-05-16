@@ -13,16 +13,11 @@ Build the LaBouR assignment deliverables:
 
 Assignment reference in the wiki:
 
-- `../dsl-assignment-1.md`
-- `../../sources/miinfosec-y2-q4-domain-specific-language-design-assignment-1.md`
-
-Raw course material is read-only and must not be modified:
-
-- `/Users/konstantinstoyanov/Documents/uni/Master.IST/YR2/Q4/domain specific langiage design/`
+- `/Users/konstantinstoyanov/Documents/uni-wiki/projects/dsl-assignment-1.md`
+- `/Users/konstantinstoyanov/Documents/uni-wiki/sources/miinfosec-y2-q4-domain-specific-language-design-assignment-1.md`
 
 ## Repository conventions
 
-- Keep Eclipse/EMF projects in this repo, not in the raw university folder.
 - Do not commit generated build/cache folders unless they are required for submission.
 - Prefer clear names matching the assignment language: `BoulderingWall`, `Volume`, `Circle`, `Triangle`, `Hold`, `Route`, `RouteStep`, `SplitStep`.
 - Add explanatory comments in `.ecore` and `.qvto`; the rubric awards points for reasoning.

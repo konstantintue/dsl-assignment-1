@@ -10,7 +10,7 @@ bin/
 build/
 target/
 *.class
-
+*.md
 # Temporary files
 *.tmp
 *.bak
