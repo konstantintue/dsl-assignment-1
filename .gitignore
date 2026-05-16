@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Eclipse workspace/project metadata that is usually local
+.metadata/
+.recommenders/
+
+# Java/Eclipse build outputs
+bin/
+build/
+target/
+*.class
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Archives generated for final submission can be recreated
+*.zip
