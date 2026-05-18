@@ -1,3 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<labouR:BoulderingWall xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:labouR="http://www.example.org/labouR" xsi:schemaLocation="http://www.example.org/labouR ../labouR.ecore"/>
+<labouR:BoulderingWall
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:labouR="http://www.example.org/labouR"
+    xsi:schemaLocation="http://www.example.org/labouR ../labouR.ecore"
+    identifier="wall01">
+  <volumes xsi:type="labouR:Circle"
+      identifier="circle01"
+      radius="100"
+      depth="20">
+    <position/>
+    <frontHolds
+        identifier="0003"
+        shape="52"
+        rotation="0">
+      <position
+          x="-20"
+          y="80"/>
+      <colours>BLUE</colours>
+    </frontHolds>
+    <frontHolds
+        identifier="0001"
+        shape="52"
+        rotation="0">
+      <position/>
+      <colours>BLUE</colours>
+    </frontHolds>
+    <frontHolds
+        identifier="0002"
+        shape="52"
+        rotation="0">
+      <position
+          x="10"
+          y="40"/>
+      <colours>BLUE</colours>
+    </frontHolds>
+    <frontHolds
+        identifier="0004"
+        shape="52"
+        rotation="0">
+      <position
+          x="30"
+          y="85"/>
+      <colours>BLUE</colours>
+    </frontHolds>
+    <frontHolds
+        identifier="0005"
+        shape="52"
+        rotation="0">
+      <position
+          y="130"/>
+      <colours>BLUE</colours>
+    </frontHolds>
+  </volumes>
+  <routes identifier="route01"
+      grade="5A">
+    <gridBasePoint/>
+    <steps xsi:type="labouR:HoldStep"
+        hold="//@volumes.0/@frontHolds.1"
+        role="START_1"/>
+    <steps xsi:type="labouR:HoldStep"
+        hold="//@volumes.0/@frontHolds.2"/>
+    <steps xsi:type="labouR:SplitStep"
+        firstHold="//@volumes.0/@frontHolds.0"
+        secondHold="//@volumes.0/@frontHolds.3"/>
+    <steps xsi:type="labouR:HoldStep"
+        hold="//@volumes.0/@frontHolds.4"
+        role="END"/>
+  </routes>
+</labouR:BoulderingWall>
