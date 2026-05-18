@@ -4,13 +4,13 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:labouR="http://www.example.org/labouR"
-    xsi:schemaLocation="http://www.example.org/labouR ../labouR.ecore"
+    xsi:schemaLocation="http://www.example.org/labouR platform:/resource/labouR.metamodel/model/labouR.ecore"
     identifier="wall01">
   <volumes xsi:type="labouR:Circle"
       identifier="circle01"
       radius="100"
       depth="20">
-    <position/>
+    <position x="0" y="0"/>
     <frontHolds
         identifier="0003"
         shape="52"
@@ -24,7 +24,7 @@
         identifier="0001"
         shape="52"
         rotation="0">
-      <position/>
+      <position x="0" y="0"/>
       <colours>BLUE</colours>
     </frontHolds>
     <frontHolds
@@ -50,21 +50,25 @@
         shape="52"
         rotation="0">
       <position
+          x="0"
           y="130"/>
       <colours>BLUE</colours>
     </frontHolds>
   </volumes>
   <routes identifier="route01"
       grade="5A">
-    <gridBasePoint/>
+    <gridBasePoint x="0" y="0"/>
     <steps xsi:type="labouR:HoldStep"
         hold="//@volumes.0/@frontHolds.1"
         role="START_1"/>
     <steps xsi:type="labouR:HoldStep"
-        hold="//@volumes.0/@frontHolds.2"/>
+        hold="//@volumes.0/@frontHolds.2"
+        role="NORMAL"/>
     <steps xsi:type="labouR:SplitStep"
         firstHold="//@volumes.0/@frontHolds.0"
-        secondHold="//@volumes.0/@frontHolds.3"/>
+        secondHold="//@volumes.0/@frontHolds.3"
+        firstRole="NORMAL"
+        secondRole="NORMAL"/>
     <steps xsi:type="labouR:HoldStep"
         hold="//@volumes.0/@frontHolds.4"
         role="END"/>

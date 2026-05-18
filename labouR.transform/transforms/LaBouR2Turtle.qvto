@@ -1,0 +1,188 @@
+/*
+ * LaBouR2Turtle
+ *
+ * Source: LaBouR wall models conforming to labouR.ecore.
+ * Target: the supplied turtle.ecore metamodel.
+ *
+ * Design notes for the assignment rubric:
+ * - The transformation creates one Turtle Program for the whole wall.
+ * - Routes are processed in their given order; the assignment assumes route holds are
+ *   already sorted by ascending Y coordinate.
+ * - For each hop from hold A to hold B, the generated program first emits TurnToZero,
+ *   then stores dx and dy in Turtle variables, then turns left/right according to the
+ *   sign of dx, and finally moves the Euclidean distance sqrt(dx^2 + dy^2).
+ * - The target language is expression-based, so distance and non-horizontal rotation
+ *   are represented as Sqrt/Sqr/Arctan/Binary expression trees over the dx/dy vars.
+ * - A dy = 0 hop would make dx/dy undefined; in that case the transformation emits a
+ *   constant 90 degree turn in the correct direction.
+ * - Splits are represented by a Turtle If statement. The condition is a placeholder
+ *   variable comparison; the important structural point is that then and else contain
+ *   the two sub-route alternatives. A following HoldStep is treated as the implicit
+ *   merge point and is visited by both branches.
+ */
+
+modeltype LABOUR uses "platform:/resource/labouR.metamodel/model/labouR.ecore";
+modeltype TURTLE uses "platform:/resource/nl.tue.dsldesign.turtle/model/turtle.ecore";
+
+transformation LaBouR2Turtle(in source : LABOUR, out target : TURTLE);
+
+main() {
+    source.rootObjects()[BoulderingWall]->map wallToProgram();
+}
+
+mapping BoulderingWall::wallToProgram() : Program {
+    self.routes->forEach(route) {
+        route.addRouteToProgram(result);
+    };
+}
+
+helper Route::addRouteToProgram(inout program : Program) {
+    var previous : Hold = null;
+    var i : Integer = 1;
+
+    while (i <= self.steps->size()) {
+        var step : RouteStep = self.steps->at(i);
+
+        if (step.oclIsKindOf(HoldStep)) then {
+            var current : Hold = step.oclAsType(HoldStep).hold;
+
+            if (previous <> null) then {
+                addHop(program, previous, current, self.identifier + '_step');
+            } endif;
+
+            previous := current;
+            i := i + 1;
+        } else {
+            if (step.oclIsKindOf(SplitStep)) then {
+                var split : SplitStep = step.oclAsType(SplitStep);
+
+                if (previous <> null) then {
+                    var choice : If = object If {
+                        cond := object Binary {
+                            left := object VarRef { _var := self.identifier + '_choice'; };
+                            right := object RealConst { value := 1.0; };
+                        };
+                    };
+
+                    addThenHop(choice, previous, split.firstHold, self.identifier + '_splitA');
+                    addElseHop(choice, previous, split.secondHold, self.identifier + '_splitB');
+
+                    /*
+                     * If the next route item is a normal hold, it is the implicit merge
+                     * after the split. Both branches visit it, and the outer traversal
+                     * skips that merge step to avoid generating a direct previous->merge hop.
+                     */
+                    if ((i + 1 <= self.steps->size()) and self.steps->at(i + 1).oclIsKindOf(HoldStep)) then {
+                        var merge : Hold = self.steps->at(i + 1).oclAsType(HoldStep).hold;
+                        addThenHop(choice, split.firstHold, merge, self.identifier + '_mergeA');
+                        addElseHop(choice, split.secondHold, merge, self.identifier + '_mergeB');
+                        previous := merge;
+                        i := i + 2;
+                    } else {
+                        previous := split.firstHold;
+                        i := i + 1;
+                    } endif;
+
+                    program.statements += choice;
+                } else {
+                    i := i + 1;
+                } endif;
+            } else {
+                i := i + 1;
+            } endif;
+        } endif;
+    };
+}
+
+helper addHop(inout program : Program, sourceHold : Hold, targetHold : Hold, prefix : String) {
+    program.statements += object TurnToZero {};
+    program.statements += createDxAssignment(sourceHold, targetHold, prefix);
+    program.statements += createDyAssignment(sourceHold, targetHold, prefix);
+
+    var dx : Integer = targetHold.position.x - sourceHold.position.x;
+    var dy : Integer = targetHold.position.y - sourceHold.position.y;
+
+    if (dx > 0) then {
+        program.statements += object TurnRight { expr := createAngleExpr(dx, dy, prefix); };
+    } else {
+        if (dx < 0) then {
+            program.statements += object TurnLeft { expr := createAngleExpr(dx, dy, prefix); };
+        } endif;
+    } endif;
+
+    program.statements += object Move { expr := createDistanceExpr(prefix); };
+}
+
+helper addThenHop(inout ifStmt : If, sourceHold : Hold, targetHold : Hold, prefix : String) {
+    ifStmt._then += object TurnToZero {};
+    ifStmt._then += createDxAssignment(sourceHold, targetHold, prefix);
+    ifStmt._then += createDyAssignment(sourceHold, targetHold, prefix);
+
+    var dx : Integer = targetHold.position.x - sourceHold.position.x;
+    var dy : Integer = targetHold.position.y - sourceHold.position.y;
+
+    if (dx > 0) then {
+        ifStmt._then += object TurnRight { expr := createAngleExpr(dx, dy, prefix); };
+    } else {
+        if (dx < 0) then {
+            ifStmt._then += object TurnLeft { expr := createAngleExpr(dx, dy, prefix); };
+        } endif;
+    } endif;
+
+    ifStmt._then += object Move { expr := createDistanceExpr(prefix); };
+}
+
+helper addElseHop(inout ifStmt : If, sourceHold : Hold, targetHold : Hold, prefix : String) {
+    ifStmt._else += object TurnToZero {};
+    ifStmt._else += createDxAssignment(sourceHold, targetHold, prefix);
+    ifStmt._else += createDyAssignment(sourceHold, targetHold, prefix);
+
+    var dx : Integer = targetHold.position.x - sourceHold.position.x;
+    var dy : Integer = targetHold.position.y - sourceHold.position.y;
+
+    if (dx > 0) then {
+        ifStmt._else += object TurnRight { expr := createAngleExpr(dx, dy, prefix); };
+    } else {
+        if (dx < 0) then {
+            ifStmt._else += object TurnLeft { expr := createAngleExpr(dx, dy, prefix); };
+        } endif;
+    } endif;
+
+    ifStmt._else += object Move { expr := createDistanceExpr(prefix); };
+}
+
+helper createDxAssignment(sourceHold : Hold, targetHold : Hold, prefix : String) : Assignment {
+    return object Assignment {
+        _var := prefix + '_dx';
+        expr := object RealConst { value := targetHold.position.x - sourceHold.position.x; };
+    };
+}
+
+helper createDyAssignment(sourceHold : Hold, targetHold : Hold, prefix : String) : Assignment {
+    return object Assignment {
+        _var := prefix + '_dy';
+        expr := object RealConst { value := targetHold.position.y - sourceHold.position.y; };
+    };
+}
+
+helper createAngleExpr(dx : Integer, dy : Integer, prefix : String) : Expr {
+    if (dy = 0) then {
+        return object RealConst { value := 90.0; };
+    } else {
+        return object Arctan {
+            expr := object Binary {
+                left := object Abs { expr := object VarRef { _var := prefix + '_dx'; }; };
+                right := object VarRef { _var := prefix + '_dy'; };
+            };
+        };
+    } endif;
+}
+
+helper createDistanceExpr(prefix : String) : Expr {
+    return object Sqrt {
+        expr := object Binary {
+            left := object Sqr { expr := object VarRef { _var := prefix + '_dx'; }; };
+            right := object Sqr { expr := object VarRef { _var := prefix + '_dy'; }; };
+        };
+    };
+}
