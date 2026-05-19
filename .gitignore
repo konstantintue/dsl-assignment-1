@@ -17,3 +17,4 @@ target/
 *.md
 # Archives generated for final submission can be recreated
 *.zip
+*.qvtotrace
