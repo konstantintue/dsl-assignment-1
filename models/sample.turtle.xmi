@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<turtle:Program xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:turtle="http://www.example.org/turtle" xsi:schemaLocation="http://www.example.org/turtle ../nl.tue.dsldesign.turtle/model/turtle.ecore">
+  <statements xsi:type="turtle:TurnToZero"/>
+  <statements xsi:type="turtle:Assignment" var="route01_step_dx">
+    <expr xsi:type="turtle:RealConst" value="10.0"/>
+  </statements>
+  <statements xsi:type="turtle:Assignment" var="route01_step_dy">
+    <expr xsi:type="turtle:RealConst" value="40.0"/>
+  </statements>
+  <statements xsi:type="turtle:TurnRight">
+    <expr xsi:type="turtle:Arctan">
+      <expr xsi:type="turtle:Binary" operation="DIVISION">
+        <left xsi:type="turtle:Abs">
+          <expr xsi:type="turtle:VarRef" var="route01_step_dx"/>
+        </left>
+        <right xsi:type="turtle:VarRef" var="route01_step_dy"/>
+      </expr>
+    </expr>
+  </statements>
+  <statements xsi:type="turtle:Move">
+    <expr xsi:type="turtle:Sqrt">
+      <expr xsi:type="turtle:Binary" operation="ADD">
+        <left xsi:type="turtle:Sqr">
+          <expr xsi:type="turtle:VarRef" var="route01_step_dx"/>
+        </left>
+        <right xsi:type="turtle:Sqr">
+          <expr xsi:type="turtle:VarRef" var="route01_step_dy"/>
+        </right>
+      </expr>
+    </expr>
+  </statements>
+  <statements xsi:type="turtle:If">
+    <cond xsi:type="turtle:Binary" operation="EQ">
+      <left xsi:type="turtle:VarRef" var="route01_choice"/>
+      <right xsi:type="turtle:RealConst" value="1.0"/>
+    </cond>
+    <then xsi:type="turtle:TurnToZero"/>
+    <then xsi:type="turtle:Assignment" var="route01_splitA_dx">
+      <expr xsi:type="turtle:RealConst" value="-30.0"/>
+    </then>
+    <then xsi:type="turtle:Assignment" var="route01_splitA_dy">
+      <expr xsi:type="turtle:RealConst" value="40.0"/>
+    </then>
+    <then xsi:type="turtle:TurnLeft">
+      <expr xsi:type="turtle:Arctan">
+        <expr xsi:type="turtle:Binary" operation="DIVISION">
+          <left xsi:type="turtle:Abs">
+            <expr xsi:type="turtle:VarRef" var="route01_splitA_dx"/>
+          </left>
+          <right xsi:type="turtle:VarRef" var="route01_splitA_dy"/>
+        </expr>
+      </expr>
+    </then>
+    <then xsi:type="turtle:Move">
+      <expr xsi:type="turtle:Sqrt">
+        <expr xsi:type="turtle:Binary" operation="ADD">
+          <left xsi:type="turtle:Sqr">
+            <expr xsi:type="turtle:VarRef" var="route01_splitA_dx"/>
+          </left>
+          <right xsi:type="turtle:Sqr">
+            <expr xsi:type="turtle:VarRef" var="route01_splitA_dy"/>
+          </right>
+        </expr>
+      </expr>
+    </then>
+    <then xsi:type="turtle:TurnToZero"/>
+    <then xsi:type="turtle:Assignment" var="route01_mergeA_dx">
+      <expr xsi:type="turtle:RealConst" value="20.0"/>
+    </then>
+    <then xsi:type="turtle:Assignment" var="route01_mergeA_dy">
+      <expr xsi:type="turtle:RealConst" value="50.0"/>
+    </then>
+    <then xsi:type="turtle:TurnRight">
+      <expr xsi:type="turtle:Arctan">
+        <expr xsi:type="turtle:Binary" operation="DIVISION">
+          <left xsi:type="turtle:Abs">
+            <expr xsi:type="turtle:VarRef" var="route01_mergeA_dx"/>
+          </left>
+          <right xsi:type="turtle:VarRef" var="route01_mergeA_dy"/>
+        </expr>
+      </expr>
+    </then>
+    <then xsi:type="turtle:Move">
+      <expr xsi:type="turtle:Sqrt">
+        <expr xsi:type="turtle:Binary" operation="ADD">
+          <left xsi:type="turtle:Sqr">
+            <expr xsi:type="turtle:VarRef" var="route01_mergeA_dx"/>
+          </left>
+          <right xsi:type="turtle:Sqr">
+            <expr xsi:type="turtle:VarRef" var="route01_mergeA_dy"/>
+          </right>
+        </expr>
+      </expr>
+    </then>
+    <else xsi:type="turtle:TurnToZero"/>
+    <else xsi:type="turtle:Assignment" var="route01_splitB_dx">
+      <expr xsi:type="turtle:RealConst" value="20.0"/>
+    </else>
+    <else xsi:type="turtle:Assignment" var="route01_splitB_dy">
+      <expr xsi:type="turtle:RealConst" value="45.0"/>
+    </else>
+    <else xsi:type="turtle:TurnRight">
+      <expr xsi:type="turtle:Arctan">
+        <expr xsi:type="turtle:Binary" operation="DIVISION">
+          <left xsi:type="turtle:Abs">
+            <expr xsi:type="turtle:VarRef" var="route01_splitB_dx"/>
+          </left>
+          <right xsi:type="turtle:VarRef" var="route01_splitB_dy"/>
+        </expr>
+      </expr>
+    </else>
+    <else xsi:type="turtle:Move">
+      <expr xsi:type="turtle:Sqrt">
+        <expr xsi:type="turtle:Binary" operation="ADD">
+          <left xsi:type="turtle:Sqr">
+            <expr xsi:type="turtle:VarRef" var="route01_splitB_dx"/>
+          </left>
+          <right xsi:type="turtle:Sqr">
+            <expr xsi:type="turtle:VarRef" var="route01_splitB_dy"/>
+          </right>
+        </expr>
+      </expr>
+    </else>
+    <else xsi:type="turtle:TurnToZero"/>
+    <else xsi:type="turtle:Assignment" var="route01_mergeB_dx">
+      <expr xsi:type="turtle:RealConst" value="-30.0"/>
+    </else>
+    <else xsi:type="turtle:Assignment" var="route01_mergeB_dy">
+      <expr xsi:type="turtle:RealConst" value="45.0"/>
+    </else>
+    <else xsi:type="turtle:TurnLeft">
+      <expr xsi:type="turtle:Arctan">
+        <expr xsi:type="turtle:Binary" operation="DIVISION">
+          <left xsi:type="turtle:Abs">
+            <expr xsi:type="turtle:VarRef" var="route01_mergeB_dx"/>
+          </left>
+          <right xsi:type="turtle:VarRef" var="route01_mergeB_dy"/>
+        </expr>
+      </expr>
+    </else>
+    <else xsi:type="turtle:Move">
+      <expr xsi:type="turtle:Sqrt">
+        <expr xsi:type="turtle:Binary" operation="ADD">
+          <left xsi:type="turtle:Sqr">
+            <expr xsi:type="turtle:VarRef" var="route01_mergeB_dx"/>
+          </left>
+          <right xsi:type="turtle:Sqr">
+            <expr xsi:type="turtle:VarRef" var="route01_mergeB_dy"/>
+          </right>
+        </expr>
+      </expr>
+    </else>
+  </statements>
+</turtle:Program>
