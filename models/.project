@@ -3,6 +3,8 @@
 	<name>models</name>
 	<comment>Input and generated output XMI models for the LaBouR assignment.</comment>
 	<projects>
+		<project>labouR.metamodel</project>
+		<project>labouR.transform</project>
 	</projects>
 	<buildSpec>
 	</buildSpec>
