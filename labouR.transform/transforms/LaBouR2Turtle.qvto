@@ -21,7 +21,7 @@
  *   merge point and is visited by both branches.
  */
 
-modeltype LABOUR uses "platform:/resource/labouR.metamodel/model/labouR.ecore";
+modeltype LABOUR uses 'http://www.example.org/labouR';
 modeltype TURTLE uses "platform:/resource/nl.tue.dsldesign.turtle/model/turtle.ecore";
 
 transformation LaBouR2Turtle(in source : LABOUR, out target : TURTLE);
@@ -61,6 +61,7 @@ helper Route::addRouteToProgram(inout program : Program) {
                         cond := object Binary {
                             left := object VarRef { _var := self.identifier + '_choice'; };
                             right := object RealConst { value := 1.0; };
+                            operation := Operation::EQ;
                         };
                     };
 
@@ -173,6 +174,7 @@ helper createAngleExpr(dx : Integer, dy : Integer, prefix : String) : Expr {
             expr := object Binary {
                 left := object Abs { expr := object VarRef { _var := prefix + '_dx'; }; };
                 right := object VarRef { _var := prefix + '_dy'; };
+                operation := Operation::DIVISION;
             };
         };
     } endif;
@@ -183,6 +185,7 @@ helper createDistanceExpr(prefix : String) : Expr {
         expr := object Binary {
             left := object Sqr { expr := object VarRef { _var := prefix + '_dx'; }; };
             right := object Sqr { expr := object VarRef { _var := prefix + '_dy'; }; };
+            operation := Operation::ADD;
         };
     };
 }
