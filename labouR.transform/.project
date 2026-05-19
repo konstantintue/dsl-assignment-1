@@ -3,6 +3,8 @@
 	<name>labouR.transform</name>
 	<comment>QVTo transformation project for LaBouR to Turtle.</comment>
 	<projects>
+		<project>labouR.metamodel</project>
+		<project>models</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
