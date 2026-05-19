@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/labouR.metamodel/src" modelPluginID="labouR.metamodel"
+    modelName="LabouR" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="21.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>labouR.ecore</foreignModel>
+  <genPackages prefix="LabouR" disposableProviderFactory="true" ecorePackage="labouR.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="labouR.ecore#//Colour">
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//Colour/WHITE"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//Colour/YELLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//Colour/GREEN"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//Colour/BLUE"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//Colour/RED"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//Colour/PURPLE"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//Colour/PINK"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//Colour/BLACK"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//Colour/ORANGE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="labouR.ecore#//HoldRole">
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//HoldRole/NORMAL"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//HoldRole/START_1"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//HoldRole/START_2"/>
+      <genEnumLiterals ecoreEnumLiteral="labouR.ecore#//HoldRole/END"/>
+    </genEnums>
+    <genClasses ecoreClass="labouR.ecore#//BoulderingWall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//BoulderingWall/identifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//BoulderingWall/volumes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//BoulderingWall/routes"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="labouR.ecore#//Volume">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Volume/identifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Volume/position"/>
+    </genClasses>
+    <genClasses ecoreClass="labouR.ecore#//Circle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Circle/radius"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Circle/depth"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Circle/frontHolds"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Circle/sideHolds"/>
+    </genClasses>
+    <genClasses ecoreClass="labouR.ecore#//Triangle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Triangle/depth"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Triangle/corner1"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Triangle/corner2"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Triangle/corner3"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Triangle/extrusion"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Triangle/leftHolds"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Triangle/rightHolds"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Triangle/bottomHolds"/>
+    </genClasses>
+    <genClasses ecoreClass="labouR.ecore#//Hold">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Hold/identifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Hold/position"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Hold/shape"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Hold/colours"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Hold/rotation"/>
+    </genClasses>
+    <genClasses ecoreClass="labouR.ecore#//Route">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Route/identifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Route/grade"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Route/gridBasePoint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labouR.ecore#//Route/steps"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="labouR.ecore#//RouteStep"/>
+    <genClasses ecoreClass="labouR.ecore#//HoldStep">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference labouR.ecore#//HoldStep/hold"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//HoldStep/role"/>
+    </genClasses>
+    <genClasses ecoreClass="labouR.ecore#//SplitStep">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference labouR.ecore#//SplitStep/firstHold"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference labouR.ecore#//SplitStep/secondHold"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//SplitStep/firstRole"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//SplitStep/secondRole"/>
+    </genClasses>
+    <genClasses ecoreClass="labouR.ecore#//Point">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Point/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labouR.ecore#//Point/y"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

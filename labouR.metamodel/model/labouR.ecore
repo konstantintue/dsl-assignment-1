@@ -1,101 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    name="labouR"
-    nsURI="http://www.example.org/labouR"
-    nsPrefix="labouR">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="labouR" nsURI="http://www.example.org/labouR" nsPrefix="labouR">
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
     <details key="documentation" value="LaBouR metamodel for 2IMP20 DSL Design Assignment 1. The model uses one root BoulderingWall containing volumes and routes. Plain Ecore captures containment, references, multiplicities, and enums; additional well-formedness rules from the assignment, such as exact hold-id format, maximum number of start/end holds, at most one split, and colour compatibility across a route, are documented design constraints rather than OCL constraints."/>
   </eAnnotations>
-
   <eClassifiers xsi:type="ecore:EClass" name="BoulderingWall">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Single root class for a LaBouR model. It composes the wall volumes and routes, satisfying the assignment requirement that all model elements are reachable from one root object."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="volumes" lowerBound="1" upperBound="-1" eType="#//Volume" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="routes" lowerBound="1" upperBound="-1" eType="#//Route" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="volumes" lowerBound="1"
+        upperBound="-1" eType="#//Volume" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="routes" lowerBound="1"
+        upperBound="-1" eType="#//Route" containment="true"/>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EClass" name="Volume" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract common superclass for physical wall volumes. Holds are owned by concrete volumes because the LaBouR specification states that volumes define which holds are available on the wall."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="position" lowerBound="1" eType="#//Point" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="position" lowerBound="1"
+        eType="#//Point" containment="true"/>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EClass" name="Circle" eSuperTypes="#//Volume">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Circular volume with front and side hold collections. The depth is an integer because the assignment permits negative depth values."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="radius" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="radius" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="depth" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="frontHolds" upperBound="-1" eType="#//Hold" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sideHolds" upperBound="-1" eType="#//Hold" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="frontHolds" upperBound="-1"
+        eType="#//Hold" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sideHolds" upperBound="-1"
+        eType="#//Hold" containment="true"/>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EClass" name="Triangle" eSuperTypes="#//Volume">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Triangular volume with three corners, an extrusion point, and left/right/bottom hold collections, matching the named parts in the assignment language."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="depth" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="corner1" lowerBound="1" eType="#//Point" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="corner2" lowerBound="1" eType="#//Point" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="corner3" lowerBound="1" eType="#//Point" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extrusion" lowerBound="1" eType="#//Point" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="leftHolds" upperBound="-1" eType="#//Hold" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rightHolds" upperBound="-1" eType="#//Hold" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="bottomHolds" upperBound="-1" eType="#//Hold" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="corner1" lowerBound="1"
+        eType="#//Point" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="corner2" lowerBound="1"
+        eType="#//Point" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="corner3" lowerBound="1"
+        eType="#//Point" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extrusion" lowerBound="1"
+        eType="#//Point" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="leftHolds" upperBound="-1"
+        eType="#//Hold" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rightHolds" upperBound="-1"
+        eType="#//Hold" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bottomHolds" upperBound="-1"
+        eType="#//Hold" containment="true"/>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EClass" name="Hold">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Physical climbing hold. Route-specific labels such as start and end are deliberately modeled on route steps instead of here, because the same physical hold can be referenced by multiple routes with different roles."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="position" lowerBound="1" eType="#//Point" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="position" lowerBound="1"
+        eType="#//Point" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shape" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="colours" lowerBound="1" upperBound="-1" eType="#//Colour"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="colours" lowerBound="1"
+        upperBound="-1" eType="#//Colour"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rotation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EClass" name="Route">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Ordered route description. The route contains RouteStep objects that reference existing holds rather than containing holds, avoiding duplication of physical holds owned by volumes."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="grade" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="gridBasePoint" lowerBound="1" eType="#//Point" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="steps" lowerBound="2" upperBound="-1" eType="#//RouteStep" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="gridBasePoint" lowerBound="1"
+        eType="#//Point" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="steps" lowerBound="2" upperBound="-1"
+        eType="#//RouteStep" containment="true"/>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EClass" name="RouteStep" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract element in the ordered route list. Ecore has no direct representation for mixed textual list items such as a hold id or a split pair, so LaBouR route items are represented polymorphically as HoldStep and SplitStep."/>
     </eAnnotations>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EClass" name="HoldStep" eSuperTypes="#//RouteStep">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A normal route item that points to one existing hold. The role stores route-local labels such as START_1, START_2, and END."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hold" lowerBound="1" eType="#//Hold"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" lowerBound="1" eType="#//HoldRole" defaultValueLiteral="NORMAL"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" lowerBound="1" eType="#//HoldRole"
+        defaultValueLiteral="NORMAL"/>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EClass" name="SplitStep" eSuperTypes="#//RouteStep">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A split in the route into two alternative sub-route holds at the same position in the ordered list. A later HoldStep can represent an implicit merge. Constraints such as at most one split or no split after a merge are semantic well-formedness rules not encoded in plain Ecore."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="firstHold" lowerBound="1" eType="#//Hold"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="secondHold" lowerBound="1" eType="#//Hold"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstRole" lowerBound="1" eType="#//HoldRole" defaultValueLiteral="NORMAL"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="secondRole" lowerBound="1" eType="#//HoldRole" defaultValueLiteral="NORMAL"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="firstHold" lowerBound="1"
+        eType="#//Hold"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="secondHold" lowerBound="1"
+        eType="#//Hold"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstRole" lowerBound="1"
+        eType="#//HoldRole" defaultValueLiteral="NORMAL"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="secondRole" lowerBound="1"
+        eType="#//HoldRole" defaultValueLiteral="NORMAL"/>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EClass" name="Point">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Reusable two-dimensional integer point in centimetres. The transformation treats holds as 2D points and ignores volume depth, as allowed by the assignment assumptions."/>
@@ -103,7 +114,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EEnum" name="Colour">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Hold colours listed in the assignment specification."/>
@@ -118,7 +128,6 @@
     <eLiterals name="BLACK" value="7"/>
     <eLiterals name="ORANGE" value="8"/>
   </eClassifiers>
-
   <eClassifiers xsi:type="ecore:EEnum" name="HoldRole">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Route-local role of a referenced hold. NORMAL is the default; START_1 and START_2 distinguish the two possible start holds; END marks an end hold."/>
